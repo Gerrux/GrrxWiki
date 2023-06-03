@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>{{ user.get_full_name }}</h1>
+        <p>Email: {{ user.email }}</p>
+        {% if user.profile_picture %}
+            <img src="{{ user.profile_picture.url }}" alt="{{ user.get_full_name }}" width="200">
+        {% else %}
+            <p>No profile picture found.</p>
+        {% endif %}
+
+        <h2>Comments</h2>
+        {% if page_obj %}
+            <ul>
+                {% for comment in page_obj %}
+                    <li>
+                        <strong>{{ comment.author.get_full_name }}:</strong> {{ comment.text }}
+                        <i>{{ comment.created_at }}</i>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">&lsaquo; prev</a>
+                    {% endif %}
+
+                    <span class="current-page">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next &rsaquo;</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% else %}
+            <p>No comments yet.</p>
+        {% endif %}
+
+        <h2>Add a comment</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Post comment</button>
+        </form>
+
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>Oops!</strong> There was an error submitting your comment.
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+    {% else %}
+        <h1>Please log in</h1>
+        <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+    {% endif %}
+{% endblock %}

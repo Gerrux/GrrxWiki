@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+     <li>User: {{ user.get_full_name }}</li>
+     <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+     <h1>Ты случайно не мясо для ебли?</h1>
+   {% else %}
+     <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+     <h1>Тебе здесь не рады, но ты попробуй зайти.</h1>
+   {% endif %}
+{% endblock content %}
