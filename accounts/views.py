@@ -19,23 +19,30 @@ class UpdateUserView(UpdateView):
     success_url = reverse_lazy('home')
     template_name = 'registration/update_user.html'
 
-    def get_object(self):
+    def get_object(self, **kwargs):
         return self.request.user
 
 
 class UpdateProfileView(UpdateView):
+    model = CustomUser
     form_class = UpdateProfileForm
     success_url = reverse_lazy('profile')
     template_name = 'registration/update_profile.html'
 
-    def get_object(self):
+    def get_object(self, **kwargs):
         return self.request.user
+
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs={'username': self.request.user.username})
 
 
 @login_required
 def profile(request, username):
     user = get_object_or_404(CustomUser, username=username)
     form = CommentForm(request.POST or None)
+    is_owner = False
+    if request.user.username == username:
+        is_owner = True
     if form.is_valid():
         comment = form.save(commit=False)
         comment.author = request.user
@@ -47,4 +54,4 @@ def profile(request, username):
     paginator = Paginator(comments, 10) # показывать 10 комментариев на странице
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'registration/profile.html', {'form': form, 'user': user, 'page_obj': page_obj})
+    return render(request, 'registration/profile.html', {'form': form, 'user': user, 'page_obj': page_obj, 'is_owner': is_owner})
