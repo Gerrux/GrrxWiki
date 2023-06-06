@@ -16,5 +16,6 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('update_user/', UpdateUserView.as_view(), name='update_user'),
     path('profile/update/', UpdateProfileView.as_view(), name='update_profile'),
+    path('all/', views.user_list, name='society'),
     path('<str:username>/', views.profile, name='profile'),
 ]

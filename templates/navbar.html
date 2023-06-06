@@ -1,0 +1,53 @@
+<nav>
+    <div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
+    <ul class="nav-list">
+        <li>
+            <a href="{% url "index" %}">Home</a>
+        </li>
+        <li>
+            {% if section_tree %}
+            <ul>
+                {% for section in section_tree %}
+                <li>
+                    <a href="{% url "section_detail" pk=section.section.id %}">{{ section.section.title }}</a>
+                    {% if section.subsections %}
+                    <ul>
+                        {% for subsection in section.subsections %}
+                        <li>
+                            <a href="{% url "section_detail" pk=subsection.section.id %}">{{ subsection.section.title }}</a>
+                            {% if subsection.subsections %}
+                            <ul>
+                                {% for subsubsection in subsection.subsections %}
+                                <li><a href="{% url "section_detail" pk=subsubsection.section.id %}">{{ subsubsection.section.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </li>
+        <li>
+            <a href="#!">World</a>
+        </li>
+        <li>
+            <a href="{% url 'society' %}">Society</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'profile' request.user.username %}">{{ request.user.username }}</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{% url 'signup' %}?next={{ request.path }}">Sign Up</a>
+            </li>
+            <li>
+                <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

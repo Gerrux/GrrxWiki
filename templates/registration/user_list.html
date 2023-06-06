@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}
+    Society
+{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+       <h1>All Users</h1>
+
+       <form method="GET">
+           <input type="text" name="search" placeholder="Search...">
+           <button type="submit">Search</button>
+       </form>
+
+       {% for user in page_obj %}
+           <div>
+               <a href="{% url 'profile' user.username %}">
+                   {% if user.profile_picture %}
+                       <img class="img-fluid img-thumbnail mt-4 mb-2" src="{{ user.profile_picture.url }}" alt="{{ user.get_full_name }}" style="width: 150px; z-index: 1">
+                   {% else %}
+                       <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center">
+                           <span class="h2 mb-0">No profile picture found.</span>
+                       </div>
+                   {% endif %}
+                   <h2>{{ user.username }}</h2>
+               </a>
+               <!-- Display other user information as necessary -->
+           </div>
+       {% empty %}
+           <p>No users found.</p>
+       {% endfor %}
+
+       <div class="pagination">
+           <span class="step-links">
+               {% if page_obj.has_previous %}
+                   <a href="?page=1">&laquo; first</a>
+                   <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+               {% endif %}
+
+               <span class="current-page">
+                   Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+               </span>
+
+               {% if page_obj.has_next %}
+                   <a href="?page={{ page_obj.next_page_number }}">next</a>
+                   <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+               {% endif %}
+           </span>
+       </div>
+    {% else %}
+        <h1>Данный раздел для вас недоступен!</h1>
+        <p>Зарегистрируйтесь или войдите в систему!</p>
+    {% endif %}
+{% endblock %}

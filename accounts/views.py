@@ -51,7 +51,21 @@ def profile(request, username):
         messages.success(request, 'Comment added successfully.')
         return redirect('profile', username=username)
     comments = Comment.objects.filter(profile=user)
-    paginator = Paginator(comments, 10) # показывать 10 комментариев на странице
+    paginator = Paginator(comments, 10)  # показывать 10 комментариев на странице
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'registration/profile.html', {'form': form, 'user': user, 'page_obj': page_obj, 'is_owner': is_owner})
+    return render(request, 'registration/profile.html',
+                  {'form': form, 'user': user, 'page_obj': page_obj, 'is_owner': is_owner})
+
+
+def user_list(request):
+    users = CustomUser.objects.all()
+
+    # Handle filtering logic if necessary
+    # ...
+
+    paginator = Paginator(users, 10)  # Display 10 users per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'registration/user_list.html', {'page_obj': page_obj})

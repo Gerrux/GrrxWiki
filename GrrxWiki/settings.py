@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-@cyz)10f9&pc8cx#%a%5+@$-t*28_r2*^f*57ndbh)oi(lw%ck
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -49,6 +49,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "wiki.middleware.NavbarFooterMiddleware",
 ]
 
 ROOT_URLCONF = "GrrxWiki.urls"
@@ -65,6 +66,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "wiki.context_processors.navbar_footer",
             ],
         },
     },
@@ -141,3 +143,13 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = '/wiki/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# CSRF_COOKIE_SECURE = True
+
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_SECONDS = 3600
+# SECURE_HSTS_PRELOAD = True
+
+# SECURE_SSL_REDIRECT = False
+
+# SESSION_COOKIE_SECURE = True
