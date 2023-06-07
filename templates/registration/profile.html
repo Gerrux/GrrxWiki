@@ -2,8 +2,6 @@
 {% load static %}
 {% block title %}{{ user.get_full_name }}{% endblock %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
-    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
 {% endblock %}
 {% block content %}
     {% if user.is_authenticated %}
@@ -24,7 +22,7 @@
                                             <span class="h2 mb-0">No profile picture found.</span>
                                         </div>
                                     {% endif %}
-                                    <div class="d-flex" style="z-index: 1">
+                                    <div class="d-flex flex-column" style="z-index: 1">
                                         {% if is_owner %}
                                         <a href="{% url 'update_profile' %}?next={{ request.path }}"
                                            class="btn btn-outline-dark m-1">Edit profile</a>
