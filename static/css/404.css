@@ -1,0 +1,19 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    background-color: #000000;
+}
+@font-face {
+  font-family: 'tomorrow-bold';
+  src: local('tomorrow-bold'),
+       url("/static/fonts/tomorrow/Tomorrow-Bold.ttf");
+}
+h1 {
+    font-family: tomorrow-bold, serif;
+    color: #F8EF00;
+}

@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>404</title>
+    <link rel="stylesheet" href="{% static "css/404.css" %}">
+</head>
+<body>
+<section class="error-body">
+	<div class="message">
+		<h1>404</h1>
+		<div class="bottom">
+			<p>You have lost your way</p>
+			<a href="{% url 'index' %}">return home</a>
+		</div>
+	</div>
+</section>
+</body>
+</html>

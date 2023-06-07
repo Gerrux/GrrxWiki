@@ -16,3 +16,7 @@ def article_detail(request, article_id):
 class SectionDetailView(DetailView):
     model = Section
     template_name = 'wiki/section_detail.html'
+
+
+def error_404_view(request, exception):
+    return render(request, 'errors/404.html')

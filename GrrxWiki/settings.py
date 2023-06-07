@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-@cyz)10f9&pc8cx#%a%5+@$-t*28_r2*^f*57ndbh)oi(lw%ck"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -54,11 +54,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "GrrxWiki.urls"
 
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates']
-        ,
+        "DIRS": [TEMPLATE_DIR,],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -70,6 +71,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
 WSGI_APPLICATION = "GrrxWiki.wsgi.application"
@@ -124,11 +130,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = "static/"
 
+STATIC_ROOT = BASE_DIR / "/static"
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
     BASE_DIR / "static/images/",
-    BASE_DIR / "static/styles/",
-    BASE_DIR / "static/scripts/",
+    BASE_DIR / "static/fonts/",
+    BASE_DIR / "static/css/",
+    BASE_DIR / "static/js/",
 ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

@@ -1,4 +1,4 @@
-from .models import Section, Article
+from .models import Section
 
 
 class SectionTree:
