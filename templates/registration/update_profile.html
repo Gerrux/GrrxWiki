@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-  <h2>Update Profile</h2>
+<div class="container cp-bg p-3 rounded-bottom text-white">
+  <h2 class="cp-h text-center">Update Profile</h2>
 
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -10,8 +10,10 @@
     {% if form.instance.profile_picture %}
       <img width="150" src="{{ form.instance.profile_picture.url }}" alt="Profile picture">
     {% endif %}
-    <button class="d-block btn-primary mt-1" type="submit">Save</button>
+  <div class="d-flex justify-content-end">
+    <button class="btn d-block btn-primary mt-1 px-5" id="cp-btn" type="submit">Save</button>
+  </div>
   </form>
-
+</div>
 {% endblock %}
 

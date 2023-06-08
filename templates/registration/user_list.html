@@ -1,35 +1,43 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/user_list.css" %}">
+{% endblock %}
 {% block title %}
     Society
 {% endblock %}
 {% block content %}
+    <div class="container cp-bg pb-3 rounded-bottom">
     {% if user.is_authenticated %}
-       <h1>All Users</h1>
+       <h1 class="cp-h text-center pt-3">All Users</h1>
 
-       <form method="GET">
-           <input type="text" name="search" placeholder="Search...">
-           <button type="submit">Search</button>
+       <form method="GET" >
+           <input class="cp-input mx-3" type="text" name="search" placeholder="Search...">
+           <button class="btn btn-outline-light" type="submit">Search</button>
        </form>
 
-       {% for user in page_obj %}
-           <div>
-               <a href="{% url 'profile' user.username %}">
-                   {% if user.profile_picture %}
-                       <img class="img-fluid img-thumbnail mt-4 mb-2" src="{{ user.profile_picture.url }}" alt="{{ user.get_full_name }}" style="width: 150px; z-index: 1">
-                   {% else %}
-                       <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center">
-                           <span class="h2 mb-0">No profile picture found.</span>
+       <div class="card-columns">
+           {% for user in page_obj %}
+               <a href="{% url 'profile' user.username %}" class="d-inline-block text-decoration-none cp-link-lg">
+                   <div class="card m-3 bg-dark">
+                       {% if user.profile_picture %}
+                           <img src="{{ user.profile_picture.url }}" class="card-img-top" alt="{{ user.get_full_name }}">
+                       {% else %}
+                           <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center">
+                               <span class="h2 mb-0">No profile picture found.</span>
+                           </div>
+                       {% endif %}
+                       <div class="card-body">
+                           <h5 class="card-title">{{ user.username }}</h5>
                        </div>
-                   {% endif %}
-                   <h2>{{ user.username }}</h2>
+                   </div>
                </a>
-               <!-- Display other user information as necessary -->
-           </div>
-       {% empty %}
-           <p>No users found.</p>
-       {% endfor %}
+           {% empty %}
+               <p>No users found.</p>
+           {% endfor %}
+       </div>
 
-       <div class="pagination">
+       <div class="pagination cp-link-lg">
            <span class="step-links">
                {% if page_obj.has_previous %}
                    <a href="?page=1">&laquo; first</a>
@@ -50,4 +58,5 @@
         <h1>Данный раздел для вас недоступен!</h1>
         <p>Зарегистрируйтесь или войдите в систему!</p>
     {% endif %}
+    </div>
 {% endblock %}

@@ -20,10 +20,14 @@ from django.urls import include, path
 
 from GrrxWiki import settings
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("accounts/", include("accounts.urls")),
-    path("wiki/", include("wiki.urls"))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns = (
+    [
+        path("admin/", admin.site.urls),
+        path("accounts/", include("accounts.urls")),
+        path("wiki/", include("wiki.urls")),
+    ]
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+)
 
-handler404 = 'wiki.views.error_404_view'
+handler404 = "wiki.views.error_404_view"

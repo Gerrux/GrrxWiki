@@ -22,12 +22,12 @@ class SectionTree:
     @classmethod
     def get_section_info(cls, section):
         info = {
-            'section': section,
-            'subsections': [],
-            'articles': list(section.articles.all())
+            "section": section,
+            "subsections": [],
+            "articles": list(section.articles.all()),
         }
         for subsection in section.section_set.all():
-            info['subsections'].append(cls.get_section_info(subsection))
+            info["subsections"].append(cls.get_section_info(subsection))
         return info
 
     @classmethod

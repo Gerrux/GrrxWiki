@@ -54,17 +54,18 @@ body {
   display: block;
 }
 
-.font-blender{
+.cp-link-lg{
   font-family: blender-bold, sans-serif;
   font-size: 1.2em;
   color: #F8EF00!important;
 }
-.font-blender:hover{
-  color: #F89D00!important;
+
+.cp-nav {
+  background-color: #000000!important;
 }
 
-.nav-bg-dark {
-  background-color: #000000!important;
+.cp-link-lg:hover{
+  color: #F89D00!important;
 }
 
 

@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark nav-bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark cp-nav">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
       <span class="navbar-toggler-icon"></span>
@@ -10,24 +10,24 @@
         </a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item mx-3">
-          <a class="nav-link font-blender" href="{% url 'index' %}">Home</a>
+          <a class="nav-link cp-link-lg" href="{% url 'index' %}">Home</a>
         </li>
         {% if section_tree %}
         {% for section in section_tree %}
         <li class="nav-item dropdown mx-3">
-          <a class="nav-link dropdown-toggle font-blender" href="{{ section.section.id }}" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle cp-link-lg" href="{{ section.section.id }}" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             {{ section.section.title }}
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
             {% if section.subsections %}
             {% for subsection in section.subsections %}
             <li>
-              <a class="dropdown-item font-blender" href="{% url 'section_detail' pk=subsection.section.id %}">{{ subsection.section.title }}</a>
+              <a class="dropdown-item cp-link-lg" href="{% url 'section_detail' pk=subsection.section.id %}">{{ subsection.section.title }}</a>
               {% if subsection.subsections %}
               <ul class="dropdown-menu dropdown-menu-dark dropdown-submenu">
                 {% for subsubsection in subsection.subsections %}
                 <li>
-                  <a class="dropdown-item font-blender" href="{% url 'section_detail' pk=subsubsection.section.id %}">{{ subsubsection.section.title }}</a>
+                  <a class="dropdown-item cp-link-lg" href="{% url 'section_detail' pk=subsubsection.section.id %}">{{ subsubsection.section.title }}</a>
                 </li>
                 {% endfor %}
               </ul>
@@ -40,7 +40,7 @@
         {% endfor %}
         {% endif %}
         <li class="nav-item mx-3">
-          <a class="nav-link font-blender" href="{% url 'society' %}">Society</a>
+          <a class="nav-link cp-link-lg" href="{% url 'society' %}">Society</a>
         </li>
       </ul>
     </div>
@@ -62,23 +62,23 @@
         {% endif %}
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuAvatar">
           <li>
-            <a class="dropdown-item font-blender" href="{% url 'profile' request.user.username %}">Profile</a>
+            <a class="dropdown-item cp-link-lg" href="{% url 'profile' request.user.username %}">Profile</a>
           </li>
           <li>
-            <a class="dropdown-item font-blender" href="{% url 'update_profile' %}">Settings</a>
+            <a class="dropdown-item cp-link-lg" href="{% url 'update_profile' %}">Settings</a>
           </li>
           <li class="btn-danger">
-            <a class="dropdown-item font-blender" href="{% url 'logout' %}">Logout</a>
+            <a class="dropdown-item cp-link-lg" href="{% url 'logout' %}">Logout</a>
           </li>
         </ul>
       </div>
       {% else %}
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item mx-3">
-                <a class="nav-link font-blender" href="{% url 'signup' %}">Sign Up</a>
+                <a class="nav-link cp-link-lg" href="{% url 'signup' %}">Sign Up</a>
               </li>
               <li class="nav-item mx-3">
-                <a class="nav-link font-blender" href="{% url 'login' %}">Login</a>
+                <a class="nav-link cp-link-lg" href="{% url 'login' %}">Login</a>
               </li>
           </ul>
       {% endif %}

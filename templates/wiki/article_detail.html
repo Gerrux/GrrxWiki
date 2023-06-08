@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load article_extras %}
 {% block content %}
-  <h1>{{ article.title }}</h1>
-  <p>{{ article.content }}</p>
-  <p>Section: <a href="{{ article.section.get_absolute_url }}">{{ article.section.title }}</a></p>
+  <div class="container cp-bg text-white">
+  <h1 class="cp-h text-center">{{ article.title }}</h1>
+  <p>{{ article.content|convert_markdown|safe }}</p>
+  <p>Section: <a class="cp-link-lg" href="{{ article.section.get_absolute_url }}">{{ article.section.title }}</a></p>
   {% if article.main_photo %}
   <p>Main photo:</p>
   <img src="{{ article.main_photo.url }}" alt="{{ article.title }}">
@@ -20,6 +21,7 @@
   <p>Author: {{ article.created_by }}</p>
   <p>Publication date: {{ article.created_at }}</p>
   {% if user.is_authenticated %}
-    <a href="{% url 'update_article' article.pk %}">Edit</a>
+    <a class="cp-link-lg" href="{% url 'update_article' article.pk %}">Edit</a>
   {% endif %}
+    </div>
 {% endblock %}

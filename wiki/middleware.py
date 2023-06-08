@@ -16,6 +16,6 @@ class NavbarFooterMiddleware:
         response = self.get_response(request)
         # If the response is a TemplateResponse, add the section tree to the context data
         if isinstance(response, TemplateResponse):
-            response.context_data['section_tree'] = section_tree
+            response.context_data["section_tree"] = section_tree
         # Return the response
         return response

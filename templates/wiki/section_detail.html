@@ -6,7 +6,8 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ object.title }}</h1>
+    <div class="container cp-bg text-white p-3">
+    <h1 class="cp-h text-center">{{ object.title }}</h1>
     <p>{{ object.description|convert_markdown|safe }}</p>
     {% if object.articles.exists %}
         <h2>Articles</h2>
@@ -16,11 +17,14 @@
             {% endfor %}
         </ul>
     {% endif %}
-    <a href="{% url 'create_article' %}?section={{ object.pk }}">Create new article</a>
+    <a class="cp-link-lg" href="{% url 'create_article' %}?section={{ object.pk }}">Create new article</a>
+    {% if object.section_set.exists %}
     <h2>Sections</h2>
     <ul>
         {% for section in object.section_set.all %}
             <li><a href="{{ section.get_absolute_url }}">{{ section.title }}</a></li>
         {% endfor %}
     </ul>
+    </div>
+    {% endif %}
 {% endblock %}
