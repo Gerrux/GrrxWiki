@@ -53,3 +53,89 @@ body {
 .dropdown-menu > li:hover > .dropdown-submenu {
   display: block;
 }
+
+.font-blender{
+  font-family: blender-bold, sans-serif;
+  font-size: 1.2em;
+  color: #F8EF00!important;
+}
+.font-blender:hover{
+  color: #F89D00!important;
+}
+
+.nav-bg-dark {
+  background-color: #000000!important;
+}
+
+
+.cp-h {
+  color: #F8EF00;
+  font-family: blender-bold, sans-serif;
+}
+
+.cp-bg {
+  background-color: #121212;
+}
+
+.cp-form {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #1f1f1f;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.cp-input {
+  background-color: #121212;
+  color: #ffffff;
+  border: 2px solid #4c4c4c;
+  border-radius: 5px;
+  font-size: 24px;
+  font-family: blender-bold, sans-serif;
+}
+
+.cp-input:focus {
+  border-color: #ffffff;
+  font-size: 24px;
+  box-shadow: none;
+}
+
+.cp-label {
+  font-family: blender-bold, sans-serif;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+#cp-btn {
+  background-color: #F8EF00;
+  text-transform: uppercase;
+  font-family: blender-bold, sans-serif;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 25px!important;
+  color: #121212;
+  outline: transparent;
+  border: 0;
+  border-radius: 0;
+  height: 50px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 25px 100%, 0 50%);
+}
+
+#cp-btn:nth-of-type(2) {
+  --primary-hue: 260;
+}
+
+#cp-btn:hover {
+  background-color: #ffffff;
+  color: #121212;
+}
+
+
+.cp-link {
+  color: #F8EF00;
+  text-decoration: none;
+}
+
+.cp-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}

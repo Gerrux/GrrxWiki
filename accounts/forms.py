@@ -9,9 +9,15 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2', 'profile_picture']
 
-    username = forms.CharField(max_length=255)
-    email = forms.EmailField()
-    profile_picture = forms.ImageField(required=False)
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-control cp-input', 'placeholder': 'Enter username'}))
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control cp-input', 'placeholder': 'Enter email'}))
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control cp-input', 'placeholder': 'Enter password'}))
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control cp-input', 'placeholder': 'Confirm password'}))
+    profile_picture = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'class': 'form-control-file', 'id': 'id_profile_picture'}))
 
 
 class CustomUserUpdateForm(forms.ModelForm):
