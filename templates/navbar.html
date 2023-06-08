@@ -47,13 +47,19 @@
     <div class="d-flex align-items-center">
       {% if user.is_authenticated %}
       <div class="dropdown">
-        <a class="d-flex align-items-center" href="#"
-          id="navbarDropdownMenuAvatar"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false">
+        {% if request.user.profile_picture %}
+        <a class="d-flex align-items-center" href="#" id="navbarDropdownMenuAvatar" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="{{ request.user.profile_picture.url }}" class="rounded-circle" height="40" alt="avatar"/>
         </a>
+        {% else %}
+            <a class="d-flex align-items-center text-decoration-none" href="#" id="navbarDropdownMenuAvatar" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="rounded-circle" style="background-color: #099bdd; color: white; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;">
+                  <span style="font-weight: bold; font-size: 20px;">
+                    {{ request.user.get_full_name|slice:":1"|upper }}
+                  </span>
+                </div>
+            </a>
+        {% endif %}
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuAvatar">
           <li>
             <a class="dropdown-item font-blender" href="{% url 'profile' request.user.username %}">Profile</a>

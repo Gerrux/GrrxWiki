@@ -1,8 +1,25 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
   <h1>{{ article.title }}</h1>
   <p>{{ article.content }}</p>
-  <p>Author: {{ article.author }}</p>
-  <p>Publication date: {{ article.pub_date }}</p>
+  <p>Section: <a href="{{ article.section.get_absolute_url }}">{{ article.section.title }}</a></p>
+  {% if article.main_photo %}
+  <p>Main photo:</p>
+  <img src="{{ article.main_photo.url }}" alt="{{ article.title }}">
+  {% endif %}
+  {% if article.gallery_photos.exists %}
+    <p>Gallery photos:</p>
+    <ul>
+      {% for photo in article.gallery_photos.all %}
+        <li><img src="{{ photo.image.url }}" alt="{{ article.title }}"></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <p>Author: {{ article.created_by }}</p>
+  <p>Publication date: {{ article.created_at }}</p>
+  {% if user.is_authenticated %}
+    <a href="{% url 'update_article' article.pk %}">Edit</a>
+  {% endif %}
 {% endblock %}
