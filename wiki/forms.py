@@ -1,4 +1,6 @@
 from django import forms
+from django_ckeditor_5.widgets import CKEditor5Widget
+
 from .models import (
     Section,
     Article,
@@ -15,17 +17,55 @@ class SectionForm(forms.ModelForm):
         model = Section
         fields = ["title", "description", "parent"]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control', 'autocomplete': 'off'})
 
-class ArticleForm(forms.ModelForm):
+        self.fields["description"].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
+        self.fields["description"].required = False
+
+
+class ArticleCreateForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ["title", "content", "section", "main_photo", "gallery_photos"]
+        fields = ["title", "content", "section", "main_photo", "gallery_photos", "status", "updated_by"]
+        widgets = {
+            "content": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name='extends'
+            ),
+            "main_photo": forms.ClearableFileInput(
+                attrs={"required": False}
+            ),
+        }
 
-    widgets = {
-        "main_photo": forms.ClearableFileInput(
-            attrs={"multiple": True, "required": False}
-        ),
-    }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control', 'autocomplete': 'off'})
+
+        self.fields["content"].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
+        self.fields["content"].required = False
+
+
+class ArticleUpdateForm(ArticleCreateForm):
+    """
+    Форма обновления статьи на сайте
+    """
+    class Meta:
+        model = Article
+        fields = ArticleCreateForm.Meta.fields + ["updated_by"]
+        widgets = {
+            "content": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name='extends'
+            )
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['content'].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
+        self.fields['content'].required = False
 
 
 class ArticleCommentForm(forms.ModelForm):

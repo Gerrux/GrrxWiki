@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views.generic import DetailView
 
-from wiki.forms import ArticleForm
+from wiki.forms import ArticleCreateForm, ArticleUpdateForm
 from wiki.models import Article, Section
 
 
@@ -15,7 +15,7 @@ def index(request):
 @login_required
 def create_article(request):
     if request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES)
+        form = ArticleCreateForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save(commit=False)
             article.created_by = request.user
@@ -23,7 +23,7 @@ def create_article(request):
             article.save()
             return redirect("article_detail", article_id=article.pk)
     else:
-        form = ArticleForm()
+        form = ArticleCreateForm()
     return render(request, "wiki/create_article.html", {"form": form})
 
 
@@ -31,7 +31,7 @@ def create_article(request):
 def update_article(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
     if request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES, instance=article)
+        form = ArticleUpdateForm(request.POST or None, request.FILES or None, instance=article)
         if form.is_valid():
             article = form.save(commit=False)
             article.updated_by = request.user
@@ -42,7 +42,7 @@ def update_article(request, article_id):
             messages.success(request, "Article updated successfully.")
             return redirect("article_detail", article_id=article.pk)
     else:
-        form = ArticleForm(instance=article)
+        form = ArticleCreateForm(instance=article)
     return render(request, "wiki/update_article.html", {"form": form})
 
 

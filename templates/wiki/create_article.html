@@ -3,11 +3,13 @@
     Create Article
 {% endblock %}
 {% block content %}
-
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Create Article</button>
-</form>
-
+    <div class="container cp-bg p-3">
+        <h1 class="cp-h text-center">Create article</h1>
+        <form method="post" enctype="multipart/form-data" class="cp-form">
+          {% csrf_token %}
+          {{ form.media }}
+          {{ form.as_p }}
+          <button type="submit" class="btn container-fluid btn-primary btn-block" id="cp-btn">Create Article</button>
+        </form>
+    </div>
 {% endblock %}

@@ -4,7 +4,10 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.contrib.auth import get_user_model
+from django.core.validators import FileExtensionValidator
 from django.db import models
+
+from accounts.utils import image_compress
 
 
 class CustomUserManager(BaseUserManager):
@@ -29,7 +32,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     profile_picture = models.ImageField(
-        upload_to="profile_pictures/", blank=True, null=True
+        upload_to="profile_pictures/", blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=('png', 'jpg', 'webp', 'jpeg', 'gif'))]
     )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -39,11 +42,26 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.__profile_picture = self.profile_picture if self.id else None
+
     def __str__(self):
         return self.username
 
     def get_full_name(self):
         return self.username
+
+    # def save(self, *args, **kwargs):
+    #     """
+    #     Сохранение полей модели при их отсутствии заполнения
+    #     """
+    #     if self.__profile_picture != self.profile_picture and self.profile_picture:
+    #         image_compress(self.profile_picture.path, width=500, height=500)
 
 
 User = get_user_model()

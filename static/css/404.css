@@ -1,19 +1,48 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
+/*======================
+    404 page
+=======================*/
+@font-face {
+  font-family: 'blender-bold';
+  src: local('blender-bold'),
+       url("/static/fonts/blender/BlenderPro-Bold.ttf");
 }
 
-body {
-    background-color: #000000;
+.page_404 {
+    margin: 0 auto;
+    padding: 40px 0;
+    background: #fff;
+    font-family: blender-bold, serif;
 }
-@font-face {
-  font-family: 'tomorrow-bold';
-  src: local('tomorrow-bold'),
-       url("/static/fonts/tomorrow/Tomorrow-Bold.ttf");
+
+.page_404 img {
+    width: 100%;
 }
-h1 {
-    font-family: tomorrow-bold, serif;
-    color: #F8EF00;
+
+.four_zero_four_bg {
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 400px;
+    background-position: center;
+}
+
+
+.four_zero_four_bg h1 {
+    font-size: 100px;
+}
+
+.four_zero_four_bg h3 {
+    font-size: 80px;
+}
+
+.link_404 {
+    color: #fff !important;
+    font-family: blender-bold, serif;
+    padding: 10px 20px;
+    background-color: #39ac31;
+    margin: 20px 0;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.content_box_404 {
+    margin-top: -50px;
 }

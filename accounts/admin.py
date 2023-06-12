@@ -25,7 +25,6 @@ class CustomUserAdmin(UserAdmin):
                 )
             },
         ),
-        ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
     list_display = ("id", "username", "email", "is_staff")
     list_filter = ("is_staff", "is_active")

@@ -38,6 +38,11 @@ urlpatterns = [
     ),
     path("update_user/", UpdateUserView.as_view(), name="update_user"),
     path("profile/update/", UpdateProfileView.as_view(), name="update_profile"),
+    path(
+        "profile/update/delete-profile-picture/",
+        views.delete_profile_picture,
+        name="delete_profile_picture",
+    ),
     path("all/", views.user_list, name="society"),
     path("<str:username>/", views.profile, name="profile"),
 ]

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
@@ -41,6 +42,21 @@ class UpdateProfileView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("profile", kwargs={"username": self.request.user.username})
+
+
+def delete_profile_picture(request):
+    if request.method == "POST":
+        user = CustomUser.objects.get(pk=request.user.id)
+        if user.profile_picture:
+            user.profile_picture.delete()
+            user.save()
+            return JsonResponse({"success": True})
+        else:
+            return JsonResponse(
+                {"success": False, "error": "No profile picture found."}
+            )
+    else:
+        return JsonResponse({"success": False, "error": "Invalid request method."})
 
 
 @login_required

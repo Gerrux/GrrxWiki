@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django_ckeditor_5.fields import CKEditor5Field
 
 from accounts.models import CustomUser
 
@@ -9,9 +10,13 @@ class Photo(models.Model):
 
 
 class Section(models.Model):
-    title = models.CharField(max_length=100)
-    description = models.TextField()
-    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, verbose_name="Заголовок")
+    description = CKEditor5Field(verbose_name="Описание", config_name="extends")
+    parent = models.ForeignKey("self", verbose_name="Родитель", null=True, blank=True, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Раздел'
+        verbose_name_plural = 'Разделы'
 
     def get_ancestors(self):
         ancestors = []
@@ -29,25 +34,38 @@ class Section(models.Model):
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=255)
-    content = models.TextField()
+    STATUS_OPTIONS = (
+        ('published', 'Опубликовано'),
+        ('draft', 'Черновик')
+    )
+
+    title = models.CharField(verbose_name='Заголовок', max_length=255)
+    content = CKEditor5Field(verbose_name="Контент", config_name="extends")
     section = models.ForeignKey(
-        Section, on_delete=models.CASCADE, related_name="articles"
+        Section, verbose_name="Раздел", on_delete=models.CASCADE, related_name="articles"
     )
     main_photo = models.ImageField(upload_to="article_photos/", blank=True)
     gallery_photos = models.ManyToManyField(Photo, related_name="articles", blank=True)
+    status = models.CharField(choices=STATUS_OPTIONS, default='published', verbose_name='Статус статьи', max_length=10)
     created_by = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, related_name="articles_created"
+        CustomUser, verbose_name='Автор', on_delete=models.CASCADE, related_name="articles_created"
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время добавления')
     updated_by = models.ForeignKey(
         CustomUser,
+        verbose_name='Обновил',
         on_delete=models.CASCADE,
         related_name="updated_articles",
         null=True,
         blank=True,
     )
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
+
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [models.Index(fields=['-created_at', 'status'])]
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'
 
     def get_absolute_url(self):
         return reverse("article_detail", args=[str(self.id)])
@@ -57,7 +75,9 @@ class Article(models.Model):
 
 
 class ArticleComment(models.Model):
-    content = models.TextField()
+    content = CKEditor5Field(
+        max_length=500, verbose_name="Comment", config_name="extends"
+    )
     created_by = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name="article_comments"
     )

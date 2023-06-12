@@ -35,7 +35,7 @@
                                            class="btn btn-outline-danger m-1">Logout</a>
                                         {% else %}
                                             <a href="#"
-                                           class="btn btn-outline-secondary m-1">Subscribe</a>
+                                           class="btn btn-outline-secondary m-1">Follow</a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                                 <form method="post">
                                     {% csrf_token %}
                                     {{ form.as_p }}
-                                    <button type="submit" class="btn btn-primary">Post comment</button>
+                                    <button type="submit" class="btn btn-warning">Post comment</button>
                                 </form>
 
                                 {% if form.errors %}

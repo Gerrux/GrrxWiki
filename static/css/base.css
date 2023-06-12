@@ -54,6 +54,21 @@ body {
   display: block;
 }
 
+.dropdown-menu-dark {
+  background-color: #000000!important;
+}
+
+.dropdown-item {
+  color: #F8EF00!important;
+  font-family: blender-bold;
+}
+
+.dropdown-item:hover {
+  background-color: #F8EF00!important;
+  color: #000000!important;
+}
+
+
 .cp-link-lg{
   font-family: blender-bold, sans-serif;
   font-size: 1.2em;
@@ -71,6 +86,11 @@ body {
 
 .cp-h {
   color: #F8EF00;
+  font-family: blender-bold, sans-serif;
+}
+
+.cp-h3 {
+  color: #00F0FF;
   font-family: blender-bold, sans-serif;
 }
 
@@ -139,4 +159,17 @@ body {
 .cp-link:hover {
   color: #ffffff;
   text-decoration: underline;
+}
+
+.cp-sidebar {
+  border-radius: 10px 0px 0px 10px;
+  background-color: #0003;
+  padding-bottom: 4px;
+  -moz-box-shadow: 0px 0px 5px rgba(255,239,0,0.75);
+  -webkit-box-shadow: 0px 0px 5px rgba(255,239,0,0.75);
+  box-shadow: 0px 0px 5px rgba(255,239,0,0.75);
+}
+
+.cp-img {
+  max-width: 100%;
 }

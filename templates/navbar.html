@@ -22,12 +22,12 @@
             {% if section.subsections %}
             {% for subsection in section.subsections %}
             <li>
-              <a class="dropdown-item cp-link-lg" href="{% url 'section_detail' pk=subsection.section.id %}">{{ subsection.section.title }}</a>
+              <a class="dropdown-item" href="{% url 'section_detail' pk=subsection.section.id %}">{{ subsection.section.title }}</a>
               {% if subsection.subsections %}
               <ul class="dropdown-menu dropdown-menu-dark dropdown-submenu">
                 {% for subsubsection in subsection.subsections %}
                 <li>
-                  <a class="dropdown-item cp-link-lg" href="{% url 'section_detail' pk=subsubsection.section.id %}">{{ subsubsection.section.title }}</a>
+                  <a class="dropdown-item" href="{% url 'section_detail' pk=subsubsection.section.id %}">{{ subsubsection.section.title }}</a>
                 </li>
                 {% endfor %}
               </ul>
@@ -62,13 +62,13 @@
         {% endif %}
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuAvatar">
           <li>
-            <a class="dropdown-item cp-link-lg" href="{% url 'profile' request.user.username %}">Profile</a>
+            <a class="dropdown-item" href="{% url 'profile' request.user.username %}">Profile</a>
           </li>
           <li>
-            <a class="dropdown-item cp-link-lg" href="{% url 'update_profile' %}">Settings</a>
+            <a class="dropdown-item" href="{% url 'update_profile' %}">Settings</a>
           </li>
           <li class="btn-danger">
-            <a class="dropdown-item cp-link-lg" href="{% url 'logout' %}">Logout</a>
+            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
           </li>
         </ul>
       </div>
