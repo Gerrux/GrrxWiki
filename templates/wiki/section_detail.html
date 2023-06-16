@@ -17,7 +17,9 @@
             <div id="cp-hr"></div>
             <div class="cp-list">
                 {% for article in object.articles.all %}
-                    <a class="cp-list-item" href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                    {% if article.status == "published" %}
+                        <a class="cp-list-item" href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                    {% endif %}
                 {% endfor %}
             </div>
         {% endif %}

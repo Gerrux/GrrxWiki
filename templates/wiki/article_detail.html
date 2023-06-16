@@ -5,7 +5,11 @@
 {% endblock %}
 {% block content %}
   <div class="container cp-bg text-white">
+      {% if article.status == "draft" %}
+          <span class="position-absolute d-block text-info m-3 fw-bold">Не опубликовано</span>
+      {% endif %}
       <h1 class="cp-h text-center">{{ article.title }}</h1>
+
   <div class="row">
   <div class="col-9">
       <div class="card-body">

@@ -21,9 +21,7 @@
                                         <img class="img-fluid cp-img mt-4 mb-2 cp-profile-picture"
                                              src="{{ user.profile_picture.url }}" alt="{{ user.get_full_name }}">
                                     {% else %}
-                                        <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center">
-                                            <span class="h2 mb-0">No profile picture found.</span>
-                                        </div>
+                                        <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" role="img"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em" font-size="30px">{{ request.user.get_full_name|slice:":1"|upper }}</text></svg>
                                     {% endif %}
                                     <div class="d-flex flex-row" style="z-index: 1">
                                         {% if is_owner %}

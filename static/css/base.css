@@ -116,11 +116,16 @@ body {
   color: #ffffff;
   border: 2px solid #4c4c4c;
   border-radius: 5px;
+  font-size: 24px;
   font-family: blender-bold, sans-serif;
 }
 
+.cp-input:valid,
+.cp-input:hover,
+.cp-input:not(:placeholder-shown),
 .cp-input:focus {
   border-color: #ffffff;
+  font-size: 24px;
   box-shadow: none;
 }
 

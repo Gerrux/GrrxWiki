@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<div class="container mt-1">
+<div class="container mt-1 d-flex justify-content-center">
 {% if form.errors %}
     <div class="p-2 d-inline-block bg-dark rounded">
         <p class="text-danger">Your username and password didn't match. Please try again.</p>
@@ -16,12 +16,12 @@
 
 {% if next %}
   {% if user.is_authenticated %}
-      <div class="p-2 d-inline-block bg-dark rounded">
+      <div class="p-2 d-inline-block bg-dark rounded d-flex justify-content-center">
         <p class="text-warning">Your account doesn't have access to this page. To proceed,
         please login with an account that has access.</p>
       </div>
   {% else %}
-      <div class="p-2 d-inline-block bg-dark rounded">
+      <div class="p-2 d-inline-block bg-dark rounded d-flex justify-content-center">
         <p class="text-warning">Please login to see this page.</p>
       </div>
   {% endif %}
@@ -31,7 +31,7 @@
 <div class="bg-dark rounded container p-3 mt-3 w-50">
 <div class="container row justify-content-center">
   <h1 class="cp-h text-center">Login</h1>
-  <form method="post" action="{% url 'login' %}">
+  <form method="post" action="{% url 'login' %}" class="cp-form">
     {% csrf_token %}
     <div class="form-group mb-4">
       <label for="username" class="form-label cp-label">Username:</label>
