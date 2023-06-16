@@ -8,8 +8,11 @@
     <form method="post" enctype="multipart/form-data" class="cp-form">
       {% csrf_token %}
       {{ form.media }}
-      {{ form.as_p }}
-      <button type="submit" class="btn container-fluid btn-primary btn-block" id="cp-btn">Update Article</button>
+        {% for field in form %}
+            <label class="cp-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+            {{ field }}
+        {% endfor %}
+      <button type="submit" class="btn container-fluid btn-primary btn-block mt-3" id="cp-btn">Update Article</button>
     </form>
 </div>
 {% endblock %}

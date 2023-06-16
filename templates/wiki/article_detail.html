@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "css/ckeditor.css" %}" type="text/css">
+{% endblock %}
 {% block content %}
   <div class="container cp-bg text-white">
       <h1 class="cp-h text-center">{{ article.title }}</h1>
@@ -7,7 +10,7 @@
   <div class="col-9">
       <div class="card-body">
           <p>Раздел: <a class="cp-link-lg" href="{{ article.section.get_absolute_url }}">{{ article.section.title }}</a></p>
-          <p class="card-text">{{ article.content|safe }}</p>
+          <div class="card-text ck-content">{{ article.content|safe }}</div>
       </div>
   </div>
   <div class="col-3 cp-sidebar">

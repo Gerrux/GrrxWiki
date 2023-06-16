@@ -1,4 +1,5 @@
 from django import forms
+from multiupload.fields import MultiImageField
 from django_ckeditor_5.widgets import CKEditor5Widget
 
 from .models import (
@@ -8,7 +9,7 @@ from .models import (
     Moderation,
     History,
     Role,
-    UserProfile,
+    UserProfile, Photo,
 )
 
 
@@ -27,11 +28,15 @@ class SectionForm(forms.ModelForm):
 
 
 class ArticleCreateForm(forms.ModelForm):
+
     class Meta:
         model = Article
-        fields = ["title", "content", "section", "main_photo", "gallery_photos", "status", "updated_by"]
+        fields = ["title", "content", "sidebar_content", "section", "main_photo", "status"]
         widgets = {
             "content": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name='extends'
+            ),
+            "sidebar_content": CKEditor5Widget(
                 attrs={"class": "django_ckeditor_5"}, config_name='extends'
             ),
             "main_photo": forms.ClearableFileInput(
@@ -46,19 +51,17 @@ class ArticleCreateForm(forms.ModelForm):
 
         self.fields["content"].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
         self.fields["content"].required = False
+        self.fields["sidebar_content"].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
+        self.fields["sidebar_content"].required = False
 
 
 class ArticleUpdateForm(ArticleCreateForm):
-    """
-    Форма обновления статьи на сайте
-    """
+
     class Meta:
         model = Article
-        fields = ArticleCreateForm.Meta.fields + ["updated_by"]
+        fields = ArticleCreateForm.Meta.fields
         widgets = {
-            "content": CKEditor5Widget(
-                attrs={"class": "django_ckeditor_5"}, config_name='extends'
-            )
+            "content": CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name='extends')
         }
 
     def __init__(self, *args, **kwargs):
@@ -66,6 +69,8 @@ class ArticleUpdateForm(ArticleCreateForm):
 
         self.fields['content'].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
         self.fields['content'].required = False
+        self.fields["sidebar_content"].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
+        self.fields["sidebar_content"].required = False
 
 
 class ArticleCommentForm(forms.ModelForm):

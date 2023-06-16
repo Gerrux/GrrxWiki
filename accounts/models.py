@@ -23,6 +23,7 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, username, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_banned", False)
         return self.create_user(email, username, password, **extra_fields)
 
 
@@ -36,6 +37,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_banned = models.BooleanField(default=False)
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email"]
@@ -62,6 +64,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     #     """
     #     if self.__profile_picture != self.profile_picture and self.profile_picture:
     #         image_compress(self.profile_picture.path, width=500, height=500)
+
+
+class Ban(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    reason = models.CharField(max_length=100)
+    banned_at = models.DateTimeField(auto_now_add=True)
 
 
 User = get_user_model()

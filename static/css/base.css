@@ -10,6 +10,12 @@
        url("/static/fonts/blender/BlenderPro-Bold.ttf");
 }
 
+@font-face {
+  font-family: 'blender-book';
+  src: local('blender-book'),
+       url("/static/fonts/blender/BlenderPro-Book.ttf");
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -17,7 +23,7 @@ html, body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: blender-book, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -110,13 +116,11 @@ body {
   color: #ffffff;
   border: 2px solid #4c4c4c;
   border-radius: 5px;
-  font-size: 24px;
   font-family: blender-bold, sans-serif;
 }
 
 .cp-input:focus {
   border-color: #ffffff;
-  font-size: 24px;
   box-shadow: none;
 }
 
@@ -150,6 +154,30 @@ body {
   color: #121212;
 }
 
+#cp-btn-sm {
+  background-color: #F8EF00;
+  padding: 0 1.5em;
+  text-transform: uppercase;
+  font-family: blender-bold, sans-serif;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 16px!important;
+  color: #121212;
+  outline: transparent;
+  border: 0;
+  border-radius: 0;
+  height: 36px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%, 0 50%);
+}
+
+#cp-btn-sm:nth-of-type(2) {
+  --primary-hue: 260;
+}
+
+#cp-btn-sm:hover {
+  background-color: #ffffff;
+  color: #121212;
+}
 
 .cp-link {
   color: #F8EF00;
@@ -172,4 +200,72 @@ body {
 
 .cp-img {
   max-width: 100%;
+}
+
+.cp-label {
+  margin-top: 10px;
+  color: #FFFFFF;
+}
+
+.ck-word-count {
+  font-family: blender-bold;
+  color: #00F0FF;
+}
+
+#cp-hr {
+  border: none;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #F8EF00;
+  border-radius: 2px;
+  box-shadow: 0 20px 20px -20px #F8EF00;
+}
+.cp-list-item:before {
+    content: '›';
+    margin-right: 5px;
+}
+
+.cp-list-item {
+  font-family: blender-book;
+  color: #00F0FF;
+  font-size: 20px;
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}
+
+.cp-list-item:hover {
+  color: #15767c;
+}
+
+.cp-card {
+  background: none!important;
+}
+
+.cp-profile-header {
+  background-color: #000000;
+  height: 200px;
+}
+
+.cp-profile-picture {
+  width: 150px;
+  z-index: 1;
+  border: 1px solid #F8EF00;
+  background-clip: padding-box;
+  -webkit-box-shadow: 5px 5px 5px -5px rgba(38, 255, 0, 0.6);
+  -moz-box-shadow: 5px 5px 5px -5px rgba(38, 255, 0, 0.6);
+  box-shadow: 5px 5px 5px -5px rgba(38, 255, 0, 0.6);
+}
+
+.cp-profile-header-banned {
+  z-index: 2;
+  width: 100%;
+  position: absolute;
+  background-color: #FF0000;
+  font-family: blender-bold;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }

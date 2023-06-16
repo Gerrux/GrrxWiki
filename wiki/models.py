@@ -41,11 +41,11 @@ class Article(models.Model):
 
     title = models.CharField(verbose_name='Заголовок', max_length=255)
     content = CKEditor5Field(verbose_name="Контент", config_name="extends")
+    sidebar_content = CKEditor5Field(verbose_name="Боковой блок", config_name="extends", blank=True, null=True)
     section = models.ForeignKey(
         Section, verbose_name="Раздел", on_delete=models.CASCADE, related_name="articles"
     )
-    main_photo = models.ImageField(upload_to="article_photos/", blank=True)
-    gallery_photos = models.ManyToManyField(Photo, related_name="articles", blank=True)
+    main_photo = models.ImageField(verbose_name="Главная фотография", upload_to="article_photos/", blank=True)
     status = models.CharField(choices=STATUS_OPTIONS, default='published', verbose_name='Статус статьи', max_length=10)
     created_by = models.ForeignKey(
         CustomUser, verbose_name='Автор', on_delete=models.CASCADE, related_name="articles_created"
